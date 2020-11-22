@@ -30,10 +30,16 @@ namespace ClientClassNamespace
             _stream.Write(data, 0, data.Length);
         }
 
+        public event Action<string> OnMessageRecevd;
+
         private void StartListening(){
             _listneningThread = new Thread(() => 
             {
-
+                byte[] data = new byte[256];
+                Int32 bytes = _stream.Read(data, 0, data.Length);
+                //event
+                string message = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                OnMessageRecevd?.Invoke(message);
             });
         }
     }
