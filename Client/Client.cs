@@ -30,8 +30,11 @@ namespace ClientClassNamespace
 
         public void SendMessage(string message)
         {
-            Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-            _stream.Write(data, 0, data.Length);
+            if (_isListening){
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                _stream.Write(data, 0, data.Length);
+            }
+            else Console.WriteLine("Error");
         }
 
         public event Action<string> OnMessageRecevd;
@@ -59,6 +62,7 @@ namespace ClientClassNamespace
         }
 
         public void Disconnect(){
+
             StopListen();
             _stream.Close();
             _listneningThread.Abort();

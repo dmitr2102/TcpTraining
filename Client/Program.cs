@@ -14,6 +14,7 @@ namespace Client
             client.Connect();
             client.OnMessageRecevd += (message)=> {};
             client.SendMessage("Hello world!");
+            Console.ReadLine();
             client.Disconnect();
             Console.ReadLine();
         }
