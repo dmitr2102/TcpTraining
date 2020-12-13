@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace Listener
+namespace ListenerNamespace
 {
     class Program
     {
@@ -14,6 +14,12 @@ namespace Listener
         //(priv) Stop waiting for connections
         //Stop ()
         static void Main(string[] args)
+        {
+            Listener listener = new Listener();
+            listener.Start();
+        }
+        
+        static void LastMain(string[] args)
         {
             #region class Listner part 1
             #region  class Listner Start
