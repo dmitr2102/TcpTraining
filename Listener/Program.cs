@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using ClientClassNamespace;
 
 namespace ListenerNamespace
 {
@@ -41,19 +42,18 @@ namespace ListenerNamespace
                 Byte[] bytes = new Byte[256];
                 String data = null;
 
-                // Enter the listening loop.
-                while (true)
-                {
-                    Console.Write("Waiting for a connection... ");
-
-                    // Perform a blocking call to accept requests.
-                    // You could also use server.AcceptSocket() here.
-                    TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
                 #endregion
                 #endregion
 
                     #region  class User
+                    // Perform a blocking call to accept requests.
+                    // You could also use server.AcceptSocket() here.
+                    
+                    TcpClient client = server.AcceptTcpClient();
+                    Console.WriteLine("Connected!");
+                    ClientClass user = new ClientClass("127.0.0.1", 13000);
+                    user.Connect();
+
                     Thread clientThread = new Thread(() => {
                         data = null;
 
@@ -67,34 +67,6 @@ namespace ListenerNamespace
                             // Translate data bytes to a ASCII string.
                             data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                             Console.WriteLine("Received: {0}", data);
-
-                            // Process the data sent by the client.
-                            switch (data)
-                            {
-                                case "a":
-                                    Console.WriteLine("Cursor Move Upper Left");
-                                    Console.Beep(4000, 300);
-                                    break;
-                                case "b":
-                                    Console.WriteLine("Cursor Move Upper Right");
-                                    Console.Beep(2000, 300);
-                                    break;
-                                case "c":
-                                    Console.WriteLine("Cursor Move Lower Right");
-                                    Console.Beep(5000, 300);
-                                    break;
-                                case "d":
-                                    Console.WriteLine("Cursor Move Lower Left");
-                                    Console.Beep(6000, 300);
-                                    break;
-                                case "e":
-                                    Console.WriteLine("Cursor Move Center");
-                                    Console.Beep(8000, 300);
-                                    break;
-                                default:
-                                    Console.WriteLine($"Symbol: {data} received but no reaction found");
-                                    break;
-                            }
 
                             byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 

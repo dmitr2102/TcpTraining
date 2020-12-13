@@ -11,7 +11,7 @@ namespace Client
             //Connect("127.0.0.1", "String message");
 
             ClientClass client = new ClientClass("127.0.0.1", 13000);
-            client.Connect();
+            client.Connect(new TcpClient());
             client.OnMessageRecevd += (message)=> {};
             client.SendMessage("Hello world!");
             Console.ReadLine();
@@ -31,7 +31,7 @@ namespace Client
         {
             try
             {
-                #region Connect
+                #region sConnect
                 // Create a TcpClient.
                 // Note, for this client to work you need to have a TcpServer
                 // connected to the same address as specified by the server, port

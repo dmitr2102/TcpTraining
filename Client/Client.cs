@@ -28,6 +28,13 @@ namespace ClientClassNamespace
             StartListening();
         }
 
+        public void Connect(TcpClient client)
+        {
+            _client = client;
+            _stream = client.GetStream();
+            StartListening();
+        }
+
         public void SendMessage(string message)
         {
             if (_isListening){
